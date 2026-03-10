@@ -1,0 +1,110 @@
+package org.example;
+
+import org.example.DAO.MaquinaDAO;
+import org.example.DAO.TecnicoDAO;
+import org.example.DTO.MaquinaDTO;
+import org.example.Entity.Maquina;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    static final Scanner SC = new Scanner(System.in);
+    static final MaquinaDAO MAQUINA_DAO = new MaquinaDAO();
+    static final TecnicoDAO TECNICO_DAO = new TecnicoDAO();
+    public static void main(String[] args) {
+        menuInicio();
+    }
+    public static void menuInicio(){
+        while (true) {
+            System.out.println("""
+                    Sistema de Manutenção Industrial
+                    
+                    1 Cadastrar Máquina 
+                    2 Cadastrar Técnico
+                    3 Cadastrar Peça 
+                    4 Criar Ordem de Manutenção 
+                    5 Associar Peças à Ordem
+                    6 Executar Manutenção 
+                    
+                    0 Sair
+                     
+                    """);
+            int menu = SC.nextInt();
+            switch (menu) {
+                case 1:
+                    cadastrarMaquina();
+                    break;
+                case 2:
+                    cadastrarTecnico();
+                    break;
+                case 3:
+                    cadastrarPeca();
+                    break;
+                case 4:
+                    criarOrdemManutencao();
+                    break;
+                case 5:
+                    associarPecasOrdem();
+                    break;
+                case 6:
+                    executarManutencao();
+                    break;
+                case 0:
+                    System.exit(0);
+
+            }
+        }
+    }
+
+    private static void cadastrarMaquina() {
+        String nomeMaquina;
+        String setorMaquina;
+        SC.nextLine();
+        ArrayList<MaquinaDTO> listaNomesMaquinas = MAQUINA_DAO.retornaMaquinaNome();
+        if (listaNomesMaquinas == null) {
+            listaNomesMaquinas.add(new MaquinaDTO("NomeTesteNingueNuncaVaiUsarMetodoAlternativoNaoEGambiarra1"));
+        }
+        do {
+            System.out.println("Nome da Máquina: ");
+            nomeMaquina = SC.nextLine();
+            MaquinaDTO nomeMaquinaRecord = new MaquinaDTO(nomeMaquina);
+            if(listaNomesMaquinas.contains(nomeMaquinaRecord)){
+                System.out.println("Máquina ja existe!");
+                return;
+            }
+            System.out.println("Setor da Máquina: ");
+            setorMaquina = SC.nextLine();
+        }while(nomeMaquina.isBlank() || setorMaquina.isBlank());
+        MAQUINA_DAO.cadastrarMaquina(new Maquina(nomeMaquina,
+                setorMaquina,
+                "OPERACIONAL"));
+    }
+
+    private static void cadastrarTecnico() {
+        String nome;
+        String setor;
+        SC.nextLine();
+        do{
+            System.out.println("Nome do Tecnico: ");
+            nome = SC.nextLine();
+            System.out.println("Nome do Setor: ");
+            setor = SC.nextLine();
+
+        }while (nome.isBlank() || setor.isBlank());
+    }
+
+    private static void cadastrarPeca() {
+    }
+
+    private static void criarOrdemManutencao() {
+    }
+
+    private static void associarPecasOrdem() {
+    }
+
+    private static void executarManutencao() {
+    }
+}
