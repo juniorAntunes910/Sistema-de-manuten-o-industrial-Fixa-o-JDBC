@@ -20,7 +20,7 @@ public class Main {
     public static void menuInicio(){
         while (true) {
             System.out.println("""
-                    Sistema de Manutenção Industrial
+                  ===  Sistema de Manutenção Industrial ===
                     
                     1 Cadastrar Máquina 
                     2 Cadastrar Técnico
